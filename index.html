@@ -325,6 +325,44 @@ footer .copyright{font-size:0.78rem;color:#475569}
   section{padding:4rem 1.25rem}
 }
 
+/* ===== Back to Top ===== */
+.back-to-top{
+  position:fixed;bottom:2rem;right:2rem;z-index:999;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.3);
+  color:#60a5fa;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;opacity:0;transform:translateY(20px);
+  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);pointer-events:none;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.back-to-top:hover{background:rgba(59,130,246,0.35);transform:translateY(-3px)}
+
+/* ===== Hero Glow ===== */
+.hero::before{
+  content:'';position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(59,130,246,0.08) 0%,rgba(139,92,246,0.04) 40%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+/* ===== Section Alternating Background ===== */
+section:nth-of-type(even){
+  background:linear-gradient(180deg,rgba(15,23,42,0.3) 0%,rgba(15,23,42,0.6) 50%,rgba(15,23,42,0.3) 100%);
+}
+
+/* ===== Table Enhancements ===== */
+@media(max-width:768px){
+  table{font-size:0.75rem!important}
+  table th,table td{padding:0.5rem 0.5rem!important}
+}
+
+/* ===== Card Improvements ===== */
+.card{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+
+/* ===== Hero Stat Enhancement ===== */
+.hero-stat .num{font-size:clamp(1rem,3vw,2.2rem)}
+
 /* ===== Custom Scrollbar ===== */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:#080d1a}
@@ -782,6 +820,12 @@ function closeNav(){navLinks.classList.remove('open')}
 
 window.addEventListener('scroll',()=>{
   navbar.classList.toggle('scrolled',window.scrollY>20);
+  document.getElementById('backToTop').classList.toggle('visible',window.scrollY>500);
+});
+
+/* ===== Back to Top ===== */
+document.getElementById('backToTop').addEventListener('click',()=>{
+  window.scrollTo({top:0,behavior:'smooth'});
 });
 
 /* ===== Scroll Reveal ===== */
@@ -803,6 +847,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 </script>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 </body>
 </html>
