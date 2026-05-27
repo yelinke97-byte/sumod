@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>统计数模社 · 上海第二工业大学</title>
+<meta name="description" content="好好生活，做些数学 — 上海第二工业大学 统计数模社。竞赛日历 | MATLAB | Python | LaTeX | 论文 | 加入我们">
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei","HarmonyOS Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#080d1a;
+  color:#e2e8f0;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+
+/* ===== Animated Background Particles ===== */
+#particles{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:0 2rem;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  background:rgba(8,13,26,0.75);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  transition:all 0.3s;
+}
+.navbar.scrolled{background:rgba(8,13,26,0.92);box-shadow:0 4px 30px rgba(0,0,0,0.5)}
+.nav-logo{
+  font-size:1.25rem;font-weight:700;
+  background:linear-gradient(135deg,#60a5fa,#a78bfa,#f59e0b);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{
+  font-size:0.9rem;font-weight:500;color:#94a3b8;
+  transition:color 0.2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;
+  background:linear-gradient(90deg,#60a5fa,#a78bfa);
+  border-radius:1px;transition:width 0.3s;
+}
+.nav-links a:hover{color:#e2e8f0}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  padding:0.5rem 1.25rem;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  border-radius:50px;color:#fff!important;font-weight:600;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.nav-cta:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 20px rgba(59,130,246,0.4);
+}
+.nav-cta::after{display:none!important}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;background:none;border:none;padding:4px}
+.nav-toggle span{width:24px;height:2px;background:#e2e8f0;border-radius:2px;transition:all 0.3s}
+
+/* ===== Sections ===== */
+section{position:relative;z-index:1;padding:6rem 2rem}
+.section-tag{
+  display:inline-block;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:#60a5fa;margin-bottom:1rem;
+}
+.section-title{
+  font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.2;margin-bottom:1.5rem;
+}
+.section-desc{
+  font-size:1.1rem;color:#94a3b8;max-width:640px;margin-bottom:3rem;
+}
+
+/* ===== Hero ===== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding-top:72px;
+}
+.hero-content{max-width:800px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.4rem 1rem;
+  background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);
+  border-radius:50px;font-size:0.85rem;color:#93c5fd;margin-bottom:2rem;
+  animation:fadeInUp 0.8s ease backwards;
+}
+.hero-badge .dot{
+  width:8px;height:8px;border-radius:50%;background:#3b82f6;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
+.hero h1{
+  font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.15;
+  margin-bottom:1.5rem;animation:fadeInUp 0.8s 0.1s ease backwards;
+}
+.hero h1 .gradient-text{
+  background:linear-gradient(135deg,#60a5fa 0%,#a78bfa 40%,#f59e0b 80%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero h1 .gold-text{
+  background:linear-gradient(135deg,#f59e0b,#fbbf24,#f59e0b);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  background-size:200% 100%;animation:shimmer 3s linear infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.hero p{
+  font-size:1.2rem;color:#94a3b8;max-width:540px;margin:0 auto 2.5rem;
+  animation:fadeInUp 0.8s 0.2s ease backwards;
+}
+.hero-actions{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeInUp 0.8s 0.3s ease backwards;
+}
+.btn{
+  padding:0.75rem 2rem;border-radius:50px;font-weight:600;font-size:0.95rem;
+  transition:all 0.3s;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-primary{
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  color:#fff;box-shadow:0 4px 20px rgba(59,130,246,0.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(59,130,246,0.5)}
+.btn-outline{
+  background:transparent;color:#e2e8f0;border:1.5px solid rgba(255,255,255,0.15);
+}
+.btn-outline:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.3)}
+.hero-stats{
+  display:flex;gap:3rem;justify-content:center;margin-top:4rem;
+  animation:fadeInUp 0.8s 0.4s ease backwards;
+}
+.hero-stat{text-align:center}
+.hero-stat .num{
+  font-size:2.2rem;font-weight:800;
+  background:linear-gradient(135deg,#60a5fa,#a78bfa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-stat .label{font-size:0.85rem;color:#64748b;margin-top:0.25rem}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== Competition Calendar ===== */
+#calendar{background:rgba(15,23,42,0.5)}
+.timeline{position:relative;max-width:800px;margin:0 auto}
+.timeline::before{
+  content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,#3b82f6,#8b5cf6,#f59e0b);
+  border-radius:1px;
+}
+.timeline-item{
+  position:relative;padding-left:80px;margin-bottom:3rem;
+}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-dot{
+  position:absolute;left:18px;top:4px;
+  width:22px;height:22px;border-radius:50%;
+  border:3px solid #3b82f6;background:#0f172a;
+  z-index:1;
+}
+.timeline-item:nth-child(2) .timeline-dot{border-color:#8b5cf6}
+.timeline-item:nth-child(3) .timeline-dot{border-color:#f59e0b}
+.timeline-item:nth-child(4) .timeline-dot{border-color:#10b981}
+.timeline-date{
+  font-size:0.8rem;font-weight:600;color:#60a5fa;margin-bottom:0.3rem;letter-spacing:0.05em;
+}
+.timeline-item:nth-child(2) .timeline-date{color:#a78bfa}
+.timeline-item:nth-child(3) .timeline-date{color:#f59e0b}
+.timeline-item:nth-child(4) .timeline-date{color:#10b981}
+.timeline-title{font-size:1.35rem;font-weight:700;margin-bottom:0.5rem}
+.timeline-desc{color:#94a3b8;font-size:0.95rem;max-width:500px}
+.timeline-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px;padding:1.5rem 1.75rem;
+  transition:all 0.3s;
+}
+.timeline-card:hover{
+  background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);
+  transform:translateX(4px);
+}
+
+/* ===== Resource Cards (MATLAB/Python/LaTeX) ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+.card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  border-radius:20px;padding:2.5rem 2rem;
+  transition:all 0.35s;position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--card-accent, #3b82f6),transparent);
+  opacity:0;transition:opacity 0.35s;
+}
+.card:hover::before{opacity:1}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.12);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.card-icon{
+  width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;margin-bottom:1.5rem;
+}
+.card-icon.matlab{background:rgba(249,115,22,0.15);color:#fb923c}
+.card-icon.python{background:rgba(59,130,246,0.15);color:#60a5fa}
+.card-icon.latex{background:rgba(16,185,129,0.15);color:#34d399}
+.card h3{font-size:1.3rem;font-weight:700;margin-bottom:0.75rem}
+.card p{color:#94a3b8;font-size:0.95rem;margin-bottom:1.25rem;line-height:1.7}
+.card-features{list-style:none;margin-bottom:1.5rem}
+.card-features li{
+  font-size:0.88rem;color:#94a3b8;padding:0.35rem 0;padding-left:1.5rem;
+  position:relative;
+}
+.card-features li::before{
+  content:'→';position:absolute;left:0;color:var(--card-accent, #60a5fa);
+}
+.card-link{
+  font-size:0.9rem;font-weight:600;color:var(--card-accent, #60a5fa);
+  display:inline-flex;align-items:center;gap:0.35rem;
+  transition:gap 0.2s;
+}
+.card-link:hover{gap:0.65rem}
+
+/* ===== Papers Section ===== */
+#papers{background:rgba(15,23,42,0.5)}
+.paper-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.paper-card{
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px;padding:2rem;
+  transition:all 0.3s;position:relative;
+}
+.paper-card:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);transform:translateY(-3px)}
+.paper-card .award{
+  display:inline-block;padding:0.2rem 0.75rem;border-radius:50px;
+  font-size:0.75rem;font-weight:700;margin-bottom:1rem;letter-spacing:0.03em;
+}
+.award-gold{background:rgba(245,158,11,0.15);color:#fbbf24}
+.award-silver{background:rgba(148,163,184,0.15);color:#cbd5e1}
+.award-best{background:rgba(239,68,68,0.15);color:#f87171}
+.paper-card h4{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4}
+.paper-card .year{font-size:0.85rem;color:#64748b;margin-bottom:0.75rem}
+.paper-card .desc{font-size:0.88rem;color:#94a3b8;line-height:1.6}
+.paper-card .gh-link{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  margin-top:1rem;font-size:0.85rem;font-weight:600;color:#60a5fa;
+  transition:color 0.2s;
+}
+.paper-card .gh-link:hover{color:#93c5fd}
+
+/* ===== Join Section ===== */
+#join{text-align:center}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;max-width:900px;margin:0 auto 3rem}
+.step{
+  position:relative;padding:2rem 1.5rem;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
+  border-radius:20px;transition:all 0.3s;
+}
+.step:hover{background:rgba(255,255,255,0.04);transform:translateY(-4px)}
+.step-num{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;font-weight:800;color:#fff;
+  margin:0 auto 1rem;
+}
+.step h4{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
+.step p{font-size:0.88rem;color:#94a3b8;line-height:1.6}
+.step-arrow{display:none}
+.join-cta{
+  padding:1rem 2.5rem;font-size:1rem;
+  background:linear-gradient(135deg,#f59e0b,#fbbf24);
+  color:#0f172a;border-radius:50px;font-weight:700;
+  transition:all 0.3s;border:none;cursor:pointer;
+  box-shadow:0 4px 20px rgba(245,158,11,0.3);
+}
+.join-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,158,11,0.45)}
+
+/* ===== Footer ===== */
+footer{
+  position:relative;z-index:1;text-align:center;padding:3rem 2rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+footer .footer-brand{
+  font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;
+}
+footer .footer-sub{font-size:0.85rem;color:#64748b;margin-bottom:1.5rem}
+footer .footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
+footer .footer-links a{font-size:0.85rem;color:#94a3b8;transition:color 0.2s}
+footer .footer-links a:hover{color:#e2e8f0}
+footer .copyright{font-size:0.78rem;color:#475569}
+
+/* ===== Scroll Reveal ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== Mobile ===== */
+@media(max-width:768px){
+  .nav-links{
+    position:fixed;top:0;right:-100%;width:280px;height:100vh;
+    flex-direction:column;justify-content:center;
+    background:rgba(8,13,26,0.97);backdrop-filter:blur(30px);
+    transition:right 0.3s;gap:1.5rem;padding:2rem;
+  }
+  .nav-links.open{right:0}
+  .nav-toggle{display:flex}
+  .hero-stats{gap:1.5rem}
+  .hero-stat .num{font-size:1.6rem}
+  .timeline-item{padding-left:60px}
+  .timeline::before{left:20px}
+  .timeline-dot{left:10px;width:18px;height:18px}
+  section{padding:4rem 1.25rem}
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#080d1a}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}
+</style>
+</head>
+<body>
+
+<!-- Background Particles -->
+<canvas id="particles"></canvas>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="nav-logo">SUMOD</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#calendar" onclick="closeNav()">竞赛日历</a></li>
+    <li><a href="#matlab-section" onclick="closeNav()">MATLAB</a></li>
+    <li><a href="#python-section" onclick="closeNav()">Python</a></li>
+    <li><a href="#latex-section" onclick="closeNav()">LaTeX</a></li>
+    <li><a href="#papers" onclick="closeNav()">论文</a></li>
+    <li><a href="#join" class="nav-cta" onclick="closeNav()">加入我们</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="菜单">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content reveal visible">
+    <div class="hero-badge">
+      <span class="dot"></span> 上海第二工业大学 · 学术科技类社团
+    </div>
+    <h1>好好生活，<br>做些<span class="gold-text">数学</span></h1>
+    <p>帮助每一位建模爱好者从容应对各类竞赛，从入门到精通，我们陪你走过每一步</p>
+    <div class="hero-actions">
+      <a href="#join" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        加入社团
+      </a>
+      <a href="#calendar" class="btn btn-outline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        竞赛日历
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">50+</div><div class="label">历年获奖论文</div></div>
+      <div class="hero-stat"><div class="num">4</div><div class="label">年度核心竞赛</div></div>
+      <div class="hero-stat"><div class="num">300+</div><div class="label">社团成员</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 竞赛日历 -->
+<section id="calendar">
+  <div class="reveal">
+    <span class="section-tag">Calendar</span>
+    <h2 class="section-title">竞赛日历</h2>
+    <p class="section-desc">掌握全年建模竞赛节奏，提前备赛，从容应对每一个挑战</p>
+  </div>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">每年 9 月</div>
+        <div class="timeline-title">全国大学生数学建模竞赛</div>
+        <div class="timeline-desc">国内规模最大、影响力最广的数学建模赛事，由国家教育部高教司和中国工业与应用数学学会共同主办。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">每年 2 月</div>
+        <div class="timeline-title">美国大学生数学建模竞赛</div>
+        <div class="timeline-desc">全球最具影响力的国际性数学建模竞赛，分为 MCM 和 ICM 两个赛道，吸引全球数千支队伍参赛。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">每年 5 月</div>
+        <div class="timeline-title">校数学建模挑战赛</div>
+        <div class="timeline-desc">校内选拔赛，为全国赛和美赛练兵，面向全校各年级学生开放，是进入建模世界的理想起点。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">不定期</div>
+        <div class="timeline-title">各类数学建模竞赛</div>
+        <div class="timeline-desc">MathorCup、电工杯、华中杯等区域性和行业性建模赛事，持续关注并组织参赛。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATLAB -->
+<section id="matlab-section">
+  <div class="reveal">
+    <span class="section-tag">Tools</span>
+    <h2 class="section-title">高效工具 · 系统资源</h2>
+    <p class="section-desc">从入门到精通，我们为你准备了完整的数学建模学习资源体系</p>
+  </div>
+  <div class="grid reveal">
+    <div class="card" style="--card-accent:#fb923c">
+      <div class="card-icon matlab">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>MATLAB 入门与进阶</h3>
+      <p>高效解决数学建模问题的核心工具，从基础语法和数值计算开始，掌握建模必备的计算能力。</p>
+      <ul class="card-features">
+        <li>基础语法与矩阵运算</li>
+        <li>数值计算与优化工具箱</li>
+        <li>数据可视化与图形绘制</li>
+        <li>常见建模算法实现</li>
+      </ul>
+      <a href="#" class="card-link" style="color:#fb923c">开始学习 →</a>
+    </div>
+
+    <div class="card" style="--card-accent:#60a5fa">
+      <div class="card-icon python">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>Python 数据处理与可视化</h3>
+      <p>现代数据分析与机器学习的首选语言，让数据处理、统计建模和可视化更加高效灵活。</p>
+      <ul class="card-features">
+        <li>NumPy / Pandas 数据处理</li>
+        <li>Matplotlib / Seaborn 可视化</li>
+        <li>Scikit-learn 机器学习</li>
+        <li>Jupyter Notebook 交互式分析</li>
+      </ul>
+      <a href="#" class="card-link" style="color:#60a5fa">开始学习 →</a>
+    </div>
+
+    <div class="card" style="--card-accent:#34d399">
+      <div class="card-icon latex">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3>LaTeX 论文排版</h3>
+      <p>规范美观的排版是竞赛论文的重要加分项，使用 LaTeX 让论文更加专业规范。</p>
+      <ul class="card-features">
+        <li>Overleaf 在线协作编辑</li>
+        <li>完整 LaTeX 模板库</li>
+        <li>团队实时同步修改</li>
+        <li>数学公式与图表排版</li>
+      </ul>
+      <a href="#" class="card-link" style="color:#34d399">开始学习 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Python 详细 -->
+<section id="python-section" style="padding-top:2rem">
+  <div class="reveal">
+    <span class="section-tag">Deep Dive</span>
+    <h2 class="section-title">Python 数据分析工作流</h2>
+    <p class="section-desc">现代数据分析和机器学习的完整工具链，从数据处理到模型部署</p>
+  </div>
+  <div class="grid reveal">
+    <div class="card" style="--card-accent:#3b82f6">
+      <h3 style="font-size:1.1rem">数据处理与特征工程</h3>
+      <p>掌握 NumPy 矩阵运算和 Pandas DataFrame 操作，高效清洗和转换建模数据，构建高质量特征矩阵。</p>
+    </div>
+    <div class="card" style="--card-accent:#8b5cf6">
+      <h3 style="font-size:1.1rem">统计建模与可视化</h3>
+      <p>利用 Scipy 统计模块和 Seaborn 可视化库，进行假设检验、回归分析和探索性数据分析。</p>
+    </div>
+    <div class="card" style="--card-accent:#10b981">
+      <h3 style="font-size:1.1rem">机器学习应用</h3>
+      <p>使用 Scikit-learn 构建分类、回归和聚类模型，将机器学习方法应用于数学建模竞赛中的预测和优化问题。</p>
+    </div>
+  </div>
+</section>
+
+<!-- LaTeX 详细 -->
+<section id="latex-section" style="padding-top:2rem">
+  <div class="reveal">
+    <span class="section-tag">Typesetting</span>
+    <h2 class="section-title">LaTeX 写作工作流</h2>
+    <p class="section-desc">统一团队写作与排版规范，推荐使用 Overleaf 进行团队协作编辑</p>
+  </div>
+  <div class="grid reveal">
+    <div class="card" style="--card-accent:#34d399">
+      <h3 style="font-size:1.1rem">选择适合的编辑工具</h3>
+      <p>从 Overleaf 在线编辑器到 VS Code + LaTeX Workshop 本地环境，选择最适合你的编辑工具和模板。</p>
+    </div>
+    <div class="card" style="--card-accent:#f59e0b">
+      <h3 style="font-size:1.1rem">团队实时协作</h3>
+      <p>团队成员可实时同步修改论文内容，分工明确、版本可控，大幅提升竞赛期间的写作效率。</p>
+    </div>
+    <div class="card" style="--card-accent:#ec4899">
+      <h3 style="font-size:1.1rem">学术排版规范</h3>
+      <p>掌握数学公式、表格、图片和参考文献的排版技巧，产出符合竞赛评审标准的专业论文。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 论文 -->
+<section id="papers">
+  <div class="reveal">
+    <span class="section-tag">Papers</span>
+    <h2 class="section-title">历年获奖论文合集</h2>
+    <p class="section-desc">系统学习优秀建模论文的方法与技术，理解获奖论文背后的解题思路</p>
+  </div>
+  <div class="paper-grid reveal">
+    <div class="paper-card">
+      <span class="award award-gold">全国赛</span>
+      <h4>全国大学生数学建模竞赛获奖论文合集</h4>
+      <div class="year">历年官方获奖论文</div>
+      <div class="desc">收录全国大学生数学建模竞赛历年优秀获奖论文，涵盖A/B/C/D/E各题型，是学习建模思路和论文写作的最佳范本。</div>
+      <a href="#" class="gh-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        查看 GitHub 合集
+      </a>
+    </div>
+    <div class="paper-card">
+      <span class="award award-best">美赛 O 奖</span>
+      <h4>美国大学生数学建模竞赛 Outstanding Winner 论文</h4>
+      <div class="year">MCM/ICM 历年特等奖</div>
+      <div class="desc">收录美国大学生数学建模竞赛 Outstanding Winner（特等奖）获奖论文，是学习国际顶级建模思路的优秀资源。</div>
+      <a href="#" class="gh-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        查看 GitHub 合集
+      </a>
+    </div>
+    <div class="paper-card">
+      <span class="award award-silver">校赛精选</span>
+      <h4>学校历年获奖论文合集</h4>
+      <div class="year">校内优秀论文汇编</div>
+      <div class="desc">收录我校历年数学建模挑战赛和参赛论文中的优秀作品，是初学者最贴近的参考范文。</div>
+      <a href="#" class="gh-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        查看 GitHub 合集
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 加入我们 -->
+<section id="join">
+  <div class="reveal">
+    <span class="section-tag">Join Us</span>
+    <h2 class="section-title">加入统计数模社</h2>
+    <p class="section-desc" style="margin:0 auto 3rem">提供数学建模学习与论文写作规范的系统指导，<br>帮助每一位同学找到适合自己的成长路径</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>MATLAB 入门</h4>
+      <p>从基础语法和数值计算开始，掌握建模核心工具</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>了解建模基本概念</h4>
+      <p>理解数学模型的基本类型、建模流程和方法论</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>完成第一个建模任务</h4>
+      <p>在学长学姐指导下，独立完成一个完整的建模项目</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>体系化认知</h4>
+      <p>对数学建模形成系统理解，能够自主选题、建模与写作</p>
+    </div>
+  </div>
+  <div class="reveal">
+    <p style="color:#94a3b8;margin-bottom:1.5rem">通过校内招新渠道加入我们，开启你的数学建模之旅</p>
+    <a href="#" class="join-cta">立即加入 SUMOD →</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-brand">统计数模社 · SUMOD</div>
+  <div class="footer-sub">上海第二工业大学 · 统计数模社</div>
+  <div class="footer-links">
+    <a href="#calendar">竞赛日历</a>
+    <a href="#matlab-section">MATLAB</a>
+    <a href="#python-section">Python</a>
+    <a href="#latex-section">LaTeX</a>
+    <a href="#papers">论文</a>
+    <a href="#join">加入我们</a>
+  </div>
+  <div class="copyright">好好生活，做些数学 — 统计数模社 © 2026</div>
+</footer>
+
+<script>
+/* ===== Particle Background ===== */
+(function(){
+  const canvas=document.getElementById('particles');
+  const ctx=canvas.getContext('2d');
+  let w,h,particles=[];
+  const max=60;
+
+  function resize(){
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize);
+
+  for(let i=0;i<max;i++){
+    particles.push({
+      x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,
+      r:Math.random()*1.5+0.5,
+      o:Math.random()*0.4+0.05
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach((p,i)=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+      if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(96,165,250,${p.o})`;
+      ctx.fill();
+
+      // Connect nearby particles
+      for(let j=i+1;j<max;j++){
+        const q=particles[j];
+        const dx=p.x-q.x,dy=p.y-q.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.moveTo(p.x,p.y);
+          ctx.lineTo(q.x,q.y);
+          ctx.strokeStyle=`rgba(96,165,250,${0.06*(1-dist/120)})`;
+          ctx.lineWidth=0.5;
+          ctx.stroke();
+        }
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ===== Navbar ===== */
+const navbar=document.getElementById('navbar');
+const navToggle=document.getElementById('navToggle');
+const navLinks=document.getElementById('navLinks');
+
+navToggle.addEventListener('click',()=>{
+  navLinks.classList.toggle('open');
+});
+function closeNav(){navLinks.classList.remove('open')}
+
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>20);
+});
+
+/* ===== Scroll Reveal ===== */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+    }
+  });
+},{threshold:0.15});
+
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Show already visible elements on load
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.reveal').forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top<window.innerHeight) el.classList.add('visible');
+  });
+});
+</script>
+
+</body>
+</html>
