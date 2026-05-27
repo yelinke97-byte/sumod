@@ -407,6 +407,7 @@ section:nth-of-type(even){
     <li><a href="#books" onclick="closeNav()">书籍</a></li>
     <li><a href="#tool-section" onclick="closeNav()">工具</a></li>
     <li><a href="#papers" onclick="closeNav()">论文</a></li>
+    <li><a href="#gallery" onclick="closeNav()">风采</a></li>
     <li><a href="#join" class="nav-cta" onclick="closeNav()">加入我们</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="菜单">
@@ -753,6 +754,80 @@ section:nth-of-type(even){
     </div>
   </div>
 </section>
+
+<!-- 社团风采 -->
+<section id="gallery" style="padding-top:3rem">
+  <div class="reveal">
+    <span class="section-tag">Gallery</span>
+    <h2 class="section-title">往期社团风采</h2>
+    <p class="section-desc">数学建模培训、竞赛现场与社团活动剪影</p>
+  </div>
+  <div class="reveal">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto">
+      <div class="gallery-card" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s;cursor:pointer" onclick="openLightbox(0)">
+        <img src="images/27ff4de026062978180787a87d89316d.jpg" alt="社团活动照片1" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block">
+        <div style="padding:0.75rem 1rem"><p style="font-size:0.85rem;color:#94a3b8;margin:0">社团活动现场</p></div>
+      </div>
+      <div class="gallery-card" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s;cursor:pointer" onclick="openLightbox(1)">
+        <img src="images/bb5a204111a32d3f3f9c86d0501688b8.jpg" alt="社团活动照片2" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block">
+        <div style="padding:0.75rem 1rem"><p style="font-size:0.85rem;color:#94a3b8;margin:0">社团活动现场</p></div>
+      </div>
+      <div class="gallery-card" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s;cursor:pointer" onclick="openLightbox(2)">
+        <img src="images/f822a92a222305afbd8d3451c2181b08.jpg" alt="社团活动照片3" loading="lazy" style="width:100%;height:240px;object-fit:cover;display:block">
+        <div style="padding:0.75rem 1rem"><p style="font-size:0.85rem;color:#94a3b8;margin:0">社团活动现场</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;flex-direction:column" onclick="closeLightbox()">
+  <button style="position:absolute;top:1.5rem;right:1.5rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;z-index:1">✕</button>
+  <button id="prevBtn" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;width:44px;height:44px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:1" onclick="event.stopPropagation();navLightbox(-1)">‹</button>
+  <button id="nextBtn" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;width:44px;height:44px;border-radius:50%;font-size:1.4rem;cursor:pointer;z-index:1" onclick="event.stopPropagation();navLightbox(1)">›</button>
+  <img id="lightboxImg" src="" alt="" style="max-width:90vw;max-height:85vh;border-radius:8px;object-fit:contain">
+  <p id="lightboxCap" style="color:#94a3b8;margin-top:1rem;font-size:0.9rem"></p>
+</div>
+
+<style>
+.gallery-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.15);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+@media(max-width:768px){
+  #prevBtn,#nextBtn{width:36px;height:36px;font-size:1rem}
+}
+</style>
+
+<script>
+const galleryImages=[
+  {src:'images/27ff4de026062978180787a87d89316d.jpg',cap:'社团活动现场'},
+  {src:'images/bb5a204111a32d3f3f9c86d0501688b8.jpg',cap:'社团活动现场'},
+  {src:'images/f822a92a222305afbd8d3451c2181b08.jpg',cap:'社团活动现场'}
+];
+let currentIdx=0;
+function openLightbox(idx){
+  currentIdx=idx;
+  const lb=document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src=galleryImages[idx].src;
+  document.getElementById('lightboxCap').textContent=galleryImages[idx].cap;
+  lb.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').style.display='none';
+  document.body.style.overflow='';
+}
+function navLightbox(dir){
+  currentIdx=(currentIdx+dir+galleryImages.length)%galleryImages.length;
+  document.getElementById('lightboxImg').src=galleryImages[currentIdx].src;
+  document.getElementById('lightboxCap').textContent=galleryImages[currentIdx].cap;
+}
+document.addEventListener('keydown',function(e){
+  if(document.getElementById('lightbox').style.display==='flex'){
+    if(e.key==='Escape')closeLightbox();
+    if(e.key==='ArrowLeft')navLightbox(-1);
+    if(e.key==='ArrowRight')navLightbox(1);
+  }
+});
+</script>
 
 <!-- 加入我们 -->
 <section id="join">
