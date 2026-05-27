@@ -312,7 +312,8 @@ footer .footer-links a:hover{color:#e2e8f0}
 footer .copyright{font-size:0.78rem;color:#475569}
 
 /* ===== Scroll Reveal ===== */
-.reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal{opacity:1;transform:none;transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.reveal-hidden{opacity:0;transform:translateY(40px)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ===== Print ===== */
@@ -850,23 +851,31 @@ document.getElementById('backToTop').addEventListener('click',()=>{
 });
 
 /* ===== Scroll Reveal ===== */
+const revealEls=document.querySelectorAll('.reveal');
+
+// Mark all as hidden (JS available) then observe
+revealEls.forEach(el=>el.classList.add('reveal-hidden'));
+
 const observer=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      e.target.classList.add('visible');
+      e.target.classList.replace('reveal-hidden','visible');
     }
   });
 },{threshold:0.15});
 
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+revealEls.forEach(el=>observer.observe(el));
 
-// Show already visible elements on load
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('.reveal').forEach(el=>{
-    const rect=el.getBoundingClientRect();
-    if(rect.top<window.innerHeight) el.classList.add('visible');
-  });
+// Show visible elements immediately
+revealEls.forEach(el=>{
+  const rect=el.getBoundingClientRect();
+  if(rect.top<window.innerHeight) el.classList.replace('reveal-hidden','visible');
 });
+
+// Fallback: reveal all after 5s in case observer fails
+setTimeout(()=>{
+  document.querySelectorAll('.reveal-hidden').forEach(el=>el.classList.replace('reveal-hidden','visible'));
+},5000);
 </script>
 
 <!-- Back to Top -->
